@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
-import Image
+try:
+    import Image
+except ImportError:
+    # Required PIL classes may or may not be available from the root namespace
+    # depending on the installation method used.
+    try:
+        from PIL import Image
+    except ImportError:
+        raise ImportError('Photologue was unable to import the Python Imaging\
+         Library. Please confirm it`s installed and available on your current\
+          Python path.')
+
 from photologue.models import PhotoEffect
 from photologue.tests.helpers import PhotologueBaseTest
 
