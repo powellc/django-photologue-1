@@ -2,6 +2,11 @@
 
 ## Powerful image management for the Django web framework.
 
+Note: fork by richardbarran adds:
+* fix broken imports on Ubuntu.
+* extra template tags.
+* sitemap.xml.
+
 This project is a fork of the project found on http://django-photologue.googlecode.com , with some bug fixes and added internationalization
 
 I believe that github is a service more appropriate than the google code, further increasing the chances of other people to contribute to him, Even the original authors are invited to help work on it =)
