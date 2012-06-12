@@ -1,6 +1,8 @@
 from photologue import models
 from photologue.tests import helpers
 
+import os
+
 class GalleryTest(helpers.PhotologueBaseTest):
 
     def setUp(self):
@@ -10,6 +12,12 @@ class GalleryTest(helpers.PhotologueBaseTest):
         self.pl2 = helpers._create_new_photo(name='Landscape2', slug='landscape2')
         self.test_gallery.photos.add(self.pl)
         self.test_gallery.photos.add(self.pl2)
+
+    def tearDown(self):
+        super(GalleryTest, self).tearDown()
+        path = self.pl2.image.path
+        self.pl2.delete()
+        os.remove(path)
 
     def test_public(self):
         """Method 'public' should only return photos flagged as public."""

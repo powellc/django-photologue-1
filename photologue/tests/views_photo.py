@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from photologue.tests import helpers
 from photologue.tests.helpers import RequestTest
 
+import os
+
 YEAR = datetime.now().year
 MONTH = datetime.now().ctime().split(' ')[1].lower()
 DAY = datetime.now().day
@@ -12,14 +14,17 @@ DAY = datetime.now().day
 
 class RequestPhotoTest(RequestTest):
 
-    
+
     def setUp(self):
         super(RequestPhotoTest, self).setUp()
         self.photo = helpers._create_new_photo(name='Fake Photo', slug='fake-photo')
 
     def tearDown(self):
         super(RequestPhotoTest, self).tearDown()
+        path = self.photo.image.path
         self.photo.delete()
+        os.remove(path)
+        self.failIf(os.path.isfile(path))
 
     def test_archive_photo_url_works(self):
         self.assertUrl(
