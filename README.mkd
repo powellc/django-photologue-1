@@ -9,6 +9,9 @@ Note: fork by richardbarran adds:
 * application templates should extend a site-wide base.html template.
 * sitemap.xml.
 
+The 'lightbox' branch includes a jquery lightbox. It assumes that a jquery library is already
+loaded in the root template.
+
 This project is a fork of the project found on http://django-photologue.googlecode.com , with some bug fixes and added internationalization
 
 I believe that github is a service more appropriate than the google code, further increasing the chances of other people to contribute to him, Even the original authors are invited to help work on it =)

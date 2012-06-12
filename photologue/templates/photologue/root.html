@@ -1,1 +1,18 @@
 {% extends "base.html" %}
+
+{% block head %}
+	{{ block.super }}
+	{% comment %}
+	Code used by the jQuery lightbox plugin 
+	http://plugins.jquery.com/project/jquerylightbox_bal 
+	
+	Notes:
+		- The options will not work using the $.Lightbox.construct method - see http://plugins.jquery.com/node/4002
+		- This plugins picks all the links with a rel="lightboxXX" and makes them in to a gallery. I noticed
+		that even if there is only one gallery, you need the XX bit.
+	Options:
+		show_linkback: false, // Do not show link to lightbox plugin.
+		download_link: false, // do not show link to download image.
+	{% endcomment %}
+	<script type="text/javascript" src="{{ STATIC_URL }}photologue/jquery-lightbox/scripts/jquery.lightbox.min.js?show_linkback=false&amp;download_link=false"></script>
+{% endblock %}
