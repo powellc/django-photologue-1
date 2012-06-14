@@ -11,6 +11,13 @@ class GalleryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'title_slug': ('title',)}
     filter_horizontal = ('photos',)
 
+    class Media:
+        # Textarea fields in the admin are edited with TinyMCE.
+        js = (
+                '/static/tiny_mce/tiny_mce.js',
+                '/static/textareas.js',
+            )
+
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_taken', 'date_added', 'is_public', 'tags', 'view_count', 'admin_thumbnail')
     list_filter = ['date_added', 'is_public']
@@ -18,7 +25,7 @@ class PhotoAdmin(admin.ModelAdmin):
     list_per_page = 10
     prepopulated_fields = {'title_slug': ('title',)}
     actions = None
-    
+
 class PhotoEffectAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'color', 'brightness', 'contrast', 'sharpness', 'filters', 'admin_sample')
     fieldsets = (
