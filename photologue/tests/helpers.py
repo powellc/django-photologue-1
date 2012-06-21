@@ -39,7 +39,7 @@ class PhotologueBaseTest(TestCase):
         path = self.pl.image.path
         self.pl.delete()
         os.remove(path)
-        self.failIf(os.path.isfile(path))
+        self.assertFalse(os.path.isfile(path))
         self.s.delete()
 
 

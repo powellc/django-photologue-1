@@ -25,11 +25,11 @@ class ImageResizeTest(PhotologueBaseTest):
         path = self.pp.image.path
         self.pp.delete()
         os.remove(path)
-        self.failIf(os.path.isfile(path))
+        self.assertFalse(os.path.isfile(path))
         path = self.ps.image.path
         self.ps.delete()
         os.remove(path)
-        self.failIf(os.path.isfile(path))
+        self.assertFalse(os.path.isfile(path))
 
     def test_resize_to_fit(self):
         self.assertEquals(self.pl.get_test_size(), (100, 75))

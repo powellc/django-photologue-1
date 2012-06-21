@@ -24,7 +24,7 @@ class RequestPhotoTest(RequestTest):
         path = self.photo.image.path
         self.photo.delete()
         os.remove(path)
-        self.failIf(os.path.isfile(path))
+        self.assertFalse(os.path.isfile(path))
 
     def test_archive_photo_url_works(self):
         self.assertUrl(
