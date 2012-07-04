@@ -1,8 +1,27 @@
-""" Newforms Admin configuration for Photologue
-
-"""
 from django.contrib import admin
+from django import forms
+from django.core.urlresolvers import reverse
+
 from models import *
+
+from tinymce.widgets import TinyMCE
+
+class GalleryAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(GalleryAdminForm, self). __init__(*args, **kwargs)
+        # Note: the reverse() cannot be run when the module is first loaded 
+        # (need to wait for urlconf urls to be populated) so the description
+        # field - with the reverse() - has to be loaded at this late stage.
+        self.fields['description'] = forms.CharField(widget=\
+            TinyMCE(attrs={'cols': 80, 'rows': 15},
+                    mce_attrs={'external_image_list_url': \
+                                               reverse('pl-photo-tinymce-list')}
+            ))
+        return
+
+    class Meta:
+        model = Gallery
 
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_added', 'photo_count', 'is_public')
@@ -10,13 +29,21 @@ class GalleryAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_added'
     prepopulated_fields = {'title_slug': ('title',)}
     filter_horizontal = ('photos',)
+    form = GalleryAdminForm
 
-    class Media:
-        # Textarea fields in the admin are edited with TinyMCE.
-        js = (
-                '/static/tiny_mce/tiny_mce.js',
-                '/static/textareas.js',
-            )
+class PhotoAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(PhotoAdminForm, self). __init__(*args, **kwargs)
+        self.fields['caption'] = forms.CharField(widget=\
+            TinyMCE(attrs={'cols': 80, 'rows': 15},
+                    mce_attrs={'external_image_list_url': \
+                                               reverse('pl-photo-tinymce-list')}
+            ))
+        return
+
+    class Meta:
+        model = Photo
 
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('title', 'date_taken', 'date_added', 'is_public', 'tags', 'view_count', 'admin_thumbnail')
@@ -25,6 +52,7 @@ class PhotoAdmin(admin.ModelAdmin):
     list_per_page = 10
     prepopulated_fields = {'title_slug': ('title',)}
     actions = None
+    form = PhotoAdminForm
 
 class PhotoEffectAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'color', 'brightness', 'contrast', 'sharpness', 'filters', 'admin_sample')

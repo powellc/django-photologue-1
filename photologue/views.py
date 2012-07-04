@@ -4,7 +4,9 @@ from django.conf import settings
 from django.views.generic.dates import ArchiveIndexView, DateDetailView, DayArchiveView, MonthArchiveView, YearArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+
 from photologue.models import Photo, Gallery
+from tinymce.views import render_to_image_list
 
 class PhotoView(object):
     queryset = Photo.objects.filter(is_public=True)
@@ -33,6 +35,14 @@ class PhotoMonthArchiveView(PhotoDateView, MonthArchiveView):
 class PhotoYearArchiveView(PhotoDateView, YearArchiveView):
     pass
 
+def photo_tiny_mce_list(request):
+    """Return list of all photos for consumption by tinyMCE widget.
+    
+    TODO: convert this to class view.
+    """
+    photos = Photo.objects.filter(is_public=True)
+    link_list = [(p.title, p.get_notices_url()) for p in photos]
+    return render_to_image_list(link_list)
 
 #gallery Views
 class GalleryView(object):

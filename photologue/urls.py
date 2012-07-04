@@ -2,7 +2,8 @@ from django.conf.urls.defaults import *
 from photologue.views import PhotoListView, PhotoDetailView, GalleryListView, \
     GalleryDetailView, PhotoArchiveIndexView, PhotoDateDetailView, PhotoDayArchiveView, \
     PhotoYearArchiveView, PhotoMonthArchiveView, GalleryArchiveIndexView, GalleryYearArchiveView, \
-    GalleryDateDetailView, GalleryDayArchiveView, GalleryMonthArchiveView
+    GalleryDateDetailView, GalleryDayArchiveView, GalleryMonthArchiveView, \
+    photo_tiny_mce_list
 
 
 urlpatterns = patterns('',
@@ -19,10 +20,10 @@ urlpatterns = patterns('',
     url(r'^gallery/(?P<year>\d{4})/$',
         GalleryYearArchiveView.as_view(),
         name='pl-gallery-archive-year'),
-    url(r'^gallery/$', 
+    url(r'^gallery/$',
         GalleryArchiveIndexView.as_view(),
         name='pl-gallery-archive'),
-                        
+
     url(r'^gallery/(?P<slug>[\-\d\w]+)/$', GalleryDetailView.as_view() , name='pl-gallery'),
     url(r'^gallery/page/(?P<page>[0-9]+)/$', GalleryListView.as_view(), name='pl-gallery-list'),
 
@@ -38,7 +39,7 @@ urlpatterns = patterns('',
     url(r'^photo/(?P<year>\d{4})/$',
         PhotoYearArchiveView.as_view(),
         name='pl-photo-archive-year'),
-    url(r'^photo/$', 
+    url(r'^photo/$',
         PhotoArchiveIndexView.as_view(),
         name='pl-photo-archive'),
 
@@ -48,6 +49,9 @@ urlpatterns = patterns('',
     url(r'^photo/page/(?P<page>[0-9]+)/$',
         PhotoListView.as_view(),
         name='pl-photo-list'),
+    url(r'^photos/tinymce_list/$',
+        photo_tiny_mce_list,
+        name='pl-photo-tinymce-list'),
 
 )
 
