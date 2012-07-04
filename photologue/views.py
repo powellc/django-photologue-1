@@ -41,7 +41,7 @@ def photo_tiny_mce_list(request):
     TODO: convert this to class view.
     """
     photos = Photo.objects.filter(is_public=True)
-    link_list = [(p.title, p.get_notices_url()) for p in photos]
+    link_list = [(p.title, p.get_display_url()) for p in photos]
     return render_to_image_list(link_list)
 
 #gallery Views
