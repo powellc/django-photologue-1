@@ -37,5 +37,7 @@ setup(
                    'Operating System :: OS Independent',
                    'Programming Language :: Python',
                    'Topic :: Utilities'],
-    install_requires=['django-tinymce>=1.5.1b2'],
+    install_requires=['django-tinymce>=1.5.1b2',
+                      'Django>=1.4', # Change to 'django.conf.urls' requires 1.4. 
+                      ],
 )
